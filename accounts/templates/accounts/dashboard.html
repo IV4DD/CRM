@@ -1,0 +1,75 @@
+{% extends 'accounts/main.html' %}
+{% load static %}
+
+    {% block title %}
+      Пульт управления
+    {% endblock %}
+
+{% block content %} 
+<br>
+
+  <h4>Сводная информация:</h4>
+<h1></h1>
+<hr>
+  <div class="row">
+     <div class="col-md-5">
+       <h5>Пациенты:</h5>
+       <div class="card card-body">
+    	   <a class ="btn btn-success btn-sm btn-block" 
+    	   href="{% url 'database_patients' %}"
+    	   >Внести изменения в базу данных</a>
+    	   <table class="table table-sm">
+    		    <tr>
+					     <th>Имя</th>
+					     <th>Фамилия</th>
+					     <th>Отчество</th>
+					     <th>Телефон</th>
+    		    </tr>
+
+            {% for patient in patients%}
+              <tr>
+                <td>{{ patient.first_name }}</td>
+                <td>{{ patient.surname }}</td>
+                <td>{{ patient.middle_name }}</td>
+                <td>{{ patient.phone }}</td>
+              </tr>
+            {% endfor %}
+
+    	   </table>
+    	</div>
+    </div>
+
+     <div class="col-md-7">
+       <h5>Оплаты:</h5>
+       <div class="card card-body">
+         <a class ="btn btn-success btn-sm btn-block" 
+         href="{% url 'database_payments' %}"
+         >Внести правки в зарегистрированные оплаты</a>
+    	   <table class="table table-sm">
+    		   <tr>
+    			   <th>Сумма</th>
+    			   <th>Тип оплаты</th>
+    			   <th>Врач</th>
+    			   <th>Пациент</th>
+    		   </tr>
+
+            {% for payment in payments %}
+              <tr>
+                <td>{{ payment.income }}</td>
+                <td>{{ payment.payment_method }}</td>
+                <td>{{ payment.technical_cost }}</td>
+                <td>{{ payment.patient }}</td>
+              </tr>
+            {% endfor %}
+
+    	   </table>
+    	</div>
+    </div>
+
+
+<h1></h1>
+<hr>
+
+{% include 'accounts/status.html' %}
+
+{% endblock %}

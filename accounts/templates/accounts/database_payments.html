@@ -1,0 +1,71 @@
+{% extends 'accounts/main.html' %}
+{% load static %}
+
+
+    {% block title %}
+      База данных всех транзакций
+    {% endblock %}
+
+
+{% block content %} 
+
+<br>
+
+<div class="container">
+	<div class="row">
+		<div class="col">
+			<div class="card card-body">
+
+				<form method="get">
+						{{ paymentfilter.form }}
+					<button class="btn btn-success" type="submit">Искать</button>
+					
+				</form>
+			</div>
+		</div>
+	</div>
+
+
+	<br>
+	<div class="row">
+		<div class="col-md">
+			<div class="card card-body">
+				<h5>Зарегистрированные транзакции:</h5>
+			</div>
+			<div class="card card-body">
+				<table class="table">
+
+							<tr>
+								<th>Пациент</th>
+								<th>Сумма</th>
+								<th>Тех. затраты</th>
+								<th>Способ оплаты</th>
+								<th>Врач</th>
+								<th>Вечерняя смена</th>
+								<th>Дата регистрации</th>
+								<th>Изменить</th>
+								<th>Удалить</th>
+							</tr>
+
+					{% for payment in payments%}
+							<tr>
+								<td>{{ payment.patient }} </td>
+								<td>{{ payment.income }} </td>
+								<td>{{ payment.technical_cost }} </td>
+								<td>{{ payment.payment_method }} </td>
+								<td>{{ payment.doctor }} </td>
+								<td>{{ payment.evening_shift }} </td>
+								<td>{{ payment.date_created }} </td>
+								<td> <a class="btn btn-outline-success btn-sm btn-block" 
+									href="{% url 'payment_update' payment.id %}">Изменить</a> </td>
+								<td> <a class="btn btn-outline-danger btn-sm btn-block" 
+									href="{% url 'payment_delete' payment.id %}">Удалить</a> </td>
+							</tr>
+					{% endfor %}
+
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock content %}

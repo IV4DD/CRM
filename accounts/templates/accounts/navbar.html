@@ -1,0 +1,56 @@
+{% load static %}
+
+<style>
+  .hello-msg{
+    font-size: 15px;
+    color: #808080;
+    margin-right: 30px;
+  }
+</style>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <img src="{% static 'images/logo.png' %}">
+  <div class="container-fluid">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+  
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+
+            {% if request.user.is_staff %}
+            <li class="nav-item">
+              <a class="nav-link" href="{%  url 'payment_create'  %}">Регистрация дохода</a>
+            </li> 
+
+            <li class="nav-item">
+              <a class="nav-link" href="{%  url 'patient_create'  %}">Регистрация пациента</a>
+            </li> 
+
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'home' %}">Пульт управления</a>
+            </li> 
+
+            <li class="nav-item dropdown">  
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              База данных
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href="{% url 'database_patients' %}">Пациенты</a></li>
+                <li><a class="dropdown-item" href="{% url 'database_payments' %}">Транзакции</a></li>
+                <li><a class="dropdown-item" href="{% url 'database_doctors' %}">Врачи</a></li>  
+
+              </ul>
+            </li>
+            {% endif %}
+
+
+          </ul>
+        </div>
+  </div>
+
+  <span class="hello-msg">Приветствуем, {{request.user}}</span>
+  <span ><a  class="btn btn-outline-secondary btn-sm btn-block" href="{% url 'logout' %}">Выйти</a></span>
+
+</nav>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>

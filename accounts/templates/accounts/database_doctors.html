@@ -1,0 +1,42 @@
+{% extends 'accounts/main.html' %}
+{% load static %}
+
+    {% block title %}
+      База данных наших врачей
+    {% endblock %}
+
+{% block content %} 
+	<br>
+	<div class="row">
+		<div class="col-md">
+			<div class="card card-body">
+				<h5>Врачи стоматологи:</h5>
+			</div>
+			<div class="card card-body">
+				<table class="table">
+
+							<tr>
+								<th>Имя Отчество</th>
+								<th>Фамилия</th>
+								<th>Номер сотового</th>
+								<th>E-mail</th>
+								<th>Личная Страница</th>
+							</tr>
+
+					{% for doctor in doctors %}
+							<tr>
+								<td>{{ doctor.first_name }} {{ doctor.middle_name }}</td>
+								<td>{{ doctor.surname }} </td>
+								<td>{{ doctor.phone }} </td>
+								<td>{{ doctor.email }} </td>
+								<td> <a class="btn btn-outline-success btn-sm btn-block" 
+									href="{% url 'doctor' doctor.id %}"
+									>Перейти</a> </td>
+							<tr/>
+					{% endfor %}
+
+				</table>
+			</div>
+		</div>
+	</div>
+{% endblock content %}

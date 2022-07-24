@@ -1,0 +1,68 @@
+{% extends 'accounts/main.html' %}
+{% load static %}
+
+
+    {% block title %}
+      База данных пациентов
+    {% endblock %}
+
+
+{% block content %} 
+	<br>
+
+	<div class="row">
+		<div class="col">
+			<div class="card card-body">
+
+				<form method="get">
+						{{ patientfilter.form }}
+					<button class="btn btn-success" type="submit">Искать</button>
+					
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<br>
+
+	<div class="row">
+		<div class="col-md">
+			<div class="card card-body">
+				<h5>База пациентов:</h5>
+			</div>
+			<div class="card card-body">
+				<table class="table">
+					<tr>
+						<th>Имя</th>
+						<th>Фамилия</th>
+						<th>Отчество</th>
+						<th>Номер сотового</th>
+						<th>Дата регистрации</th>
+						<th>ИИН</th>
+						<th>Подробнее</th>
+						<th>Изменить</th>
+						<th>Удалить</th>
+					</tr>
+
+					{% for patient in patients%}
+							<tr>
+								<td>{{ patient.first_name }} </td>
+								<td>{{ patient.surname }} </td>
+								<td>{{ patient.middle_name }} </td>
+								<td>{{ patient.phone }} </td>
+								<td>{{ patient.date_created }} </td>
+								<td>{{ patient.iin }} </td>
+								<td> <a class="btn btn-outline-success btn-sm btn-block" 
+									href="{% url 'patient' patient.id %}">Подробнее</a> </td>
+								<td> <a class="btn btn-outline-warning btn-sm btn-block" 
+									href="{% url 'patient_update' patient.id %}">Изменить</a> </td>
+								<td> <a class="btn btn-outline-danger btn-sm btn-block" 
+									href="{% url 'patient_delete' patient.id %}">Удалить</a> </td>
+							</tr>
+					{% endfor %}
+
+				</table>
+			</div>
+		</div>
+	</div>
+{% endblock content %}

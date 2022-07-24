@@ -1,0 +1,79 @@
+{% extends 'accounts/main.html' %}
+{% load static %}
+
+    {% block title %}
+      Личная cтраница врача
+    {% endblock %}
+
+{% block content %} 
+<br>
+
+<div class="row">
+	<div class="col-md">
+		<div class="card card-body">
+			<h6>Пациент:</h6>
+			<hr>
+			<h5>{{ patients.surname }}</h5>
+			<h5>{{ patients.first_name }} {{ patients.middle_name }}</h5>
+			<br>
+			<a class="btn btn-sm btn-outline-success" href="{% url 'patient_update' patients.id %}">Редактировать данные</a>
+			<br>
+			<a class="btn btn-sm btn-outline-danger" href="{% url 'patient_delete' patients.id %}">Удалить данные</a>
+		</div>
+	</div>
+	
+	<div class="col-md">
+		<div class="card card-body">
+			<h6>Дополнительная информация:</h6>
+			<hr>
+			<p>ИИН: {{ patients.iin }}</p>
+		</div>
+	</div>
+
+	<div class="col-md">
+		<div class="card card-body">
+			<h6>Фото:</h6>
+			<hr>
+			<p style="text-align: center;padding: 10px">
+				Отсутствует
+			</p>
+		</div>
+	</div>
+</div>
+
+<br>
+
+
+<div class="row">
+	<h6>Произведённые процедуры:</h6>
+	<div class="col-md">
+		<div class="card card-body">
+			<table class="table table-sm">
+				<tr>
+					<th>Пациент</th>
+					<th>Сумма</th>
+					<th>Способ оплаты</th>
+					<th>Тех. затраты</th>
+					<th>Вечерняя смена</th>
+					<th>Изменить</th>
+					<th>Удалить</th>
+				</tr>
+
+				{% for payment in payments %}
+				<tr>
+					<td>{{ payment.patient.surname }} {{ payment.patient.first_name }}</td>
+					<td>{{ payment.income }}</td>
+					<td>{{ payment.payment_method }}</td>
+					<td>{{ payment.technical_cost }}</td>
+					<td>{{ payment.evening_shift }}</td>
+					<td><a class="btn btn-success btn-sm btn-block" href="{% url 'payment_update' payment.id %}">Изменить</a></td>
+					<td><a class="btn btn-danger btn-sm btn-block" href="{% url 'payment_delete' payment.id %}">Удалить</a></td>
+				</tr>						
+				{% endfor %}
+
+			</table>
+		</div>
+	</div>
+</div>
+
+{% endblock %}

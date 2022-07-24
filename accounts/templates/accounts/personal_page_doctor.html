@@ -1,0 +1,95 @@
+{% extends 'accounts/main.html' %}
+{% load static %}
+
+    {% block title %}
+      Личная cтраница врача
+    {% endblock %}
+
+
+{% block content %} 
+<br>
+
+<div class="row">
+	<div class="col-md">
+		<div class="card card-body">
+			<h6>Врач:</h6>
+			<hr>
+			<h5>{{ doctors.surname }}</h5>
+			<h5>{{ doctors.first_name }} {{ doctors.middle_name }}</h5>
+			<br>
+			<a class="btn btn-sm btn-outline-success" href="#">Редактировать данные</a>
+			<br>
+			<a class="btn btn-sm btn-outline-danger" href="#">Удалить данные</a>
+		</div>
+	</div>
+	
+	<div class="col-md">
+		<div class="card card-body">
+			<h6>Контактная информация:</h6>
+			<hr>
+			<p>{{ doctors.email }} </p>
+			<p>{{ doctors.phone }} </p>
+		</div>
+	</div>
+
+	<div class="col-md">
+		<div class="card card-body">
+			<h6>Принято пациентов за сегодня:</h6>
+			<hr>
+			<h3 style="text-align: center;padding: 10px">
+			{{ payment_count }}</h3>
+		</div>
+	</div>
+</div>
+<br>
+
+
+<br>
+<div class="row">
+	<div class="col">
+		<div class="card card-body">
+
+			<form method="get">
+						{{ doctorfilter.form }}
+				<button class="btn btn-success" type="submit">Искать</button>
+					
+			</form>
+		</div>
+	</div>
+</div>
+<br>
+
+
+<div class="row">
+	<h6>Пациенты:</h6>
+	<div class="col-md">
+		<div class="card card-body">
+			<table class="table table-sm">
+				<tr>
+					<th>Пациент</th>
+					<th>Сумма</th>
+					<th>Способ оплаты</th>
+					<th>Тех. затраты</th>
+					<th>Вечерняя смена</th>
+					<th>Изменить</th>
+					<th>Удалить</th>
+				</tr>
+
+				{% for payment in payments %}
+				<tr>
+					<td>{{ payment.patient.surname }} {{ payment.patient.first_name }}</td>
+					<td>{{ payment.income }}</td>
+					<td>{{ payment.payment_method }}</td>
+					<td>{{ payment.technical_cost }}</td>
+					<td>{{ payment.evening_shift }}</td>
+					<td><a class="btn btn-success btn-sm btn-block" href="{% url 'payment_update' payment.id %}">Изменить</a></td>
+					<td><a class="btn btn-danger btn-sm btn-block" href="{% url 'payment_delete' payment.id %}">Удалить</a></td>
+				</tr>						
+				{% endfor %}
+
+			</table>
+		</div>
+	</div>
+</div>
+
+{% endblock %}

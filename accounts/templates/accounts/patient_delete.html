@@ -1,0 +1,33 @@
+{% extends 'accounts/main.html' %}
+{% load static %}
+
+    {% block title %}
+      Удаление всех данных о пациенте
+    {% endblock %}
+
+{% block content %} 
+
+<br>
+<div class="row">
+	<div class="col-md-6">
+		<div class="card card-body">
+			
+			<p>Вы уверены что нужно удалить данного пациента:
+			<br>
+			<br>
+			{{item}}?</p>
+
+			<form action="{% url 'patient_delete' item.id %}" method="POST">
+			<br>
+
+				{% csrf_token %}
+				<a class="btn btn-warning" href="{% url 'home' %}">Вернуться</a>
+
+				<input class="btn btn-danger" type="submit" name="Confirm">
+			</form>
+		</div>
+	</div>
+</div>
+
+
+{% endblock %}
